@@ -47,7 +47,10 @@ public class processObject {
             
         // Build request using bucket name and key to download object
         // TODO 7 BEGIN
-            
+            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(objectKey)
+                    .build();
         /// TODO 7 END
 
             System.out.println("Retrieving notes.csv from bucket...");
@@ -89,7 +92,8 @@ public class processObject {
                 
         PutObjectResponse response = 
             // TODO 8 BEGIN
-                
+                s3.putObject(putObject,
+                        RequestBody.fromFile(Paths.get(objectNewKey)));
             // TODO 8 END
 
                 System.out.println("    Object uploaded. Tag information:" + response.eTag());

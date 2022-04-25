@@ -1,6 +1,5 @@
 package dev.labs.s3;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
@@ -27,7 +26,9 @@ public class createBucket {
             Create S3 service client
         ///////////////////////////////
         */
-        
+        S3Client s3 = S3Client.builder()
+                .region(labRegion)
+                .build();
         /// TODO 1 - END ///
 
         // Check if bucket doesn't already exist using HeadBucket
@@ -49,7 +50,9 @@ public class createBucket {
             Create HeadBucket object to determine if bucket exists and you have permissions
         /////////////////////////////////////////////////////////////////////////////////
         */
-            
+            HeadBucketRequest request = HeadBucketRequest.builder()
+                    .bucket(bucketName)
+                    .build();
         /// TODO 2 - END ///
 
             HeadBucketResponse result = s3.headBucket(request);
@@ -84,8 +87,8 @@ public class createBucket {
             Create a S3 waiter objects
         /////////////////////////////////////////////////////////////////////////////////
         */
-            
-        /// TODO 3 - END ///
+            S3Waiter s3Waiter = s3Client.waiter();
+            /// TODO 3 - END ///
 
         /*
         //////////////////////////////////////////////////////////////////////////////////
@@ -93,7 +96,10 @@ public class createBucket {
             Build request to CreateBucket
         /////////////////////////////////////////////////////////////////////////////////
         */
-            
+
+            CreateBucketRequest bucketRequest = CreateBucketRequest.builder()
+                    .bucket(bucketName)
+                    .build();
         /// TODO 4 - END ///
 
             // Create bucket using request

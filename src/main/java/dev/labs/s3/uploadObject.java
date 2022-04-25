@@ -45,7 +45,8 @@ public class uploadObject {
             Assign custom metadata tag
         /////////////////////////////////////////////////////////////////////////////////
         */
-            
+            Map<String, String> metadata = new HashMap<>();
+            metadata.put("x-amz-meta-myVal2", "lab2-testing-upload");
         /// TODO 5 - END ///
 
         /*
@@ -54,7 +55,11 @@ public class uploadObject {
             Build request using bucket name, key, and metadata
         /////////////////////////////////////////////////////////////////////////////////
         */
-            
+            PutObjectRequest putObject = PutObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(objectKey)
+                    .metadata(metadata)
+                    .build();
         /// TODO 6 - END ///
 
             System.out.format("\n Uploading file from \"%s\"", new File(filePath).getAbsolutePath());
