@@ -66,6 +66,32 @@ edited `processObject.java`:
 $ mvn -q exec:java -Dexec.mainClass="dev.labs.s3.processObject"
 ```
 
+- Step 33: Checked the bucket name was correctly set:
+```
+$ aws s3api list-buckets --output text --query "Buckets[?contains(Name, `lab2-notes-bucket-`) == `true`] | [0].Name"
+lab2-notes-bucket-dt-5303
+```
+
+- Step 35: Uploaded website files through AWS CLI using configuration JSON `website.json`:
+```
+$ aws s3api put-bucket-website --bucket lab2-notes-bucket-dt-5303 --website-configuration file://html/website.json
+(no output)
+```
+- Step 37: Added a bucket policy from a JSON file
+```
+$ aws s3api put-bucket-policy --bucket lab2-notes-bucket-dt-5303 --policy file://html/policy.json
+(no output)
+```
+- Step 39: uploaded all other files using AWS CLI to sync files:
+```
+$ aws s3 sync . s3://"lab2-notes-bucket-dt-5303"
+```
+- Step 41: retrieved the URL to the website using AWS CLI:
+```
+$ echo. && echo You can now access the website using the following URL... && echo. && echo http://lab2-notes-bucket-dt-5303.s3-website.eu-west-2.amazonaws.com
+```
+
+
 To read up:
 - S3 Object metadata
 - S3 in general
