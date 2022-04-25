@@ -95,3 +95,4 @@ $ echo. && echo You can now access the website using the following URL... && ech
 To read up:
 - S3 Object metadata
 - S3 in general
+- S3 Bucket policy
